@@ -1,7 +1,7 @@
 'use strict';
 
-const sequentialPromises = require('./sequential-promises');
-const getS3 = require('./get-s3');
+const sequentialPromises = require('../utils/sequential-promises');
+const getS3 = require('../utils/get-s3');
 const downloadRemoteFile = require('./download-remote-file');
 
 const downloadRemoteFiles = remoteFileNames => {

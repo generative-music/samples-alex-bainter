@@ -1,8 +1,8 @@
 'use strict';
 
-const sequentialPromises = require('./sequential-promises');
+const sequentialPromises = require('../utils/sequential-promises');
+const getS3 = require('../utils/get-s3');
 const uploadLocalFile = require('./upload-local-file');
-const getS3 = require('./get-s3');
 
 const uploadLocalFiles = localFileNames => {
   const s3 = getS3();

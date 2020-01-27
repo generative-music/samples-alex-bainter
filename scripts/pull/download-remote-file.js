@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const { createGunzip } = require('zlib');
-const getS3 = require('./get-s3');
+const getS3 = require('../utils/get-s3');
 
 const pfs = fs.promises;
 
