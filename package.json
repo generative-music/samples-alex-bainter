@@ -9,7 +9,8 @@
     "test:watch": "mocha -w",
     "build": "node ./scripts/build/build.js",
     "pull": "node ./scripts/pull/pull.js",
-    "deploy": "node ./scripts/deploy/deploy.js"
+    "deploy": "node ./scripts/deploy/deploy.js",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
