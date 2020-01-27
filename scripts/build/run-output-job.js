@@ -14,7 +14,7 @@ const saveSampleFile = (outputJob, sampleBuffer) => {
   const { format, instrumentName } = outputJob;
   const hash = md5(sampleBuffer);
   const relativeFilename = `${hash}.${format}`;
-  const unprefixedOutputPath = `samples/${instrumentName}/${format}/${relativeFilename}`;
+  const unprefixedOutputPath = `${instrumentName}/${format}/${relativeFilename}`;
   const localPath = `./dist/${unprefixedOutputPath}`;
   return pfs
     .mkdir(path.dirname(localPath), { recursive: true })

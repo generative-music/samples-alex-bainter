@@ -2,11 +2,14 @@
   "name": "@generative-music/samples-alex-bainter",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.json",
+  "files": [],
   "scripts": {
     "test": "mocha",
     "test:watch": "mocha -w",
-    "build": "node ./scripts/build/build.js"
+    "build": "node ./scripts/build/build.js",
+    "pull": "node ./scripts/pull/pull.js",
+    "deploy": "node ./scripts/deploy/deploy.js"
   },
   "repository": {
     "type": "git",
@@ -28,7 +31,10 @@
     "eslint-config-metalex9": "^0.4.0",
     "fluent-ffmpeg": "^2.1.2",
     "md5": "^2.2.1",
+    "mime-types": "^2.1.26",
     "mocha": "^7.0.1",
-    "prettier": "^1.19.1"
+    "node-glob": "^1.2.0",
+    "prettier": "^1.19.1",
+    "zlib": "^1.0.5"
   }
 }

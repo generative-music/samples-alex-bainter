@@ -3,35 +3,37 @@
 'use strict';
 
 const pfs = require('fs').promises;
-const { SingleBar } = require('cli-progress');
 const getOutputJobsFromIndex = require('./get-output-jobs-from-index');
 const runOutputJob = require('./run-output-job');
-const inputIndex = require('../../samples/index.json');
 const getIndexFromOutputSamples = require('./get-index-from-output-samples');
+const filterExistingSamples = require('./filter-existing-samples');
+const sequentialPromises = require('../utils/sequential-promises');
+const inputIndex = require('../../samples/index.json');
+
+const outputIndexPath = './dist/index.json';
 
 const outputJobs = getOutputJobsFromIndex(inputIndex, ['wav', 'mp3', 'ogg']);
-const outputFns = outputJobs.map(job => () => runOutputJob(job));
 
-const progressBar = new SingleBar();
-progressBar.start(outputFns.length, 0);
-
-outputFns
-  .reduce(
-    (lastPromise, nextFn) =>
-      lastPromise.then(allResults =>
-        nextFn().then(results => {
-          progressBar.increment();
-          return allResults.concat(results);
-        })
-      ),
-    Promise.resolve([])
+pfs
+  .readFile(outputIndexPath)
+  .then(
+    data => filterExistingSamples(outputJobs, JSON.parse(data)),
+    () => outputJobs
   )
-  .then(outputSamples => {
-    progressBar.stop();
-    const outputIndex = getIndexFromOutputSamples(outputSamples);
-    return pfs.writeFile(
-      './dist/index.json',
-      JSON.stringify(outputIndex, null),
-      'utf8'
+  .then(filteredOutputJobs => {
+    if (filteredOutputJobs.length === 0) {
+      console.log('No samples to build.');
+      return;
+    }
+    const outputFns = outputJobs.map(job => () => runOutputJob(job));
+    sequentialPromises(outputFns, 'Creating Samples', 'samples created').then(
+      outputSamples => {
+        const outputIndex = getIndexFromOutputSamples(outputSamples);
+        return pfs.writeFile(
+          './dist/index.json',
+          JSON.stringify(outputIndex, null),
+          'utf8'
+        );
+      }
     );
   });
