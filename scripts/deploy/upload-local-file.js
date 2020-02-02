@@ -3,7 +3,7 @@
 const fs = require('fs');
 const { createGzip } = require('zlib');
 const { lookup } = require('mime-types');
-const getS3 = require('./get-s3');
+const getS3 = require('../utils/get-s3');
 
 const uploadLocalFile = (localFileName, s3 = getS3()) =>
   s3

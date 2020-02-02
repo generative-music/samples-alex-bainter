@@ -4,7 +4,7 @@
 
 const getRemoteFileNames = require('../utils/get-remote-file-names');
 const getLocalDistFileNames = require('../utils/get-local-dist-file-names');
-const downloadRemoteFiles = require('../utils/download-remote-files');
+const downloadRemoteFiles = require('./download-remote-files');
 
 Promise.all([getLocalDistFileNames(), getRemoteFileNames()]).then(
   ([localFileNames, remoteFileNames]) => {

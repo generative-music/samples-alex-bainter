@@ -1,6 +1,6 @@
 {
   "name": "@generative-music/samples-alex-bainter",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.json",
   "files": [],
@@ -9,7 +9,8 @@
     "test:watch": "mocha -w",
     "build": "node ./scripts/build/build.js",
     "pull": "node ./scripts/pull/pull.js",
-    "deploy": "node ./scripts/deploy/deploy.js"
+    "deploy": "node ./scripts/deploy/deploy.js",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
