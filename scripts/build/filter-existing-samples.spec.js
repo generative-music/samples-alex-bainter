@@ -20,8 +20,8 @@ describe('filterExistingSamples', () => {
     ];
     expect(
       filterExistingSamples(outputJobs, {
-        test1: { format1: { key1: 'something' } },
-        test2: { format2: ['something'] },
+        format1: { test1: { key1: 'something' }, test2: ['something'] },
+        format2: { test1: { key1: 'something' }, test2: ['something'] },
       })
     ).to.eql([]);
   });
