@@ -2,15 +2,24 @@
   "name": "@generative-music/samples-alex-bainter",
   "version": "0.1.0",
   "description": "",
-  "main": "dist/index.json",
-  "files": [],
+  "main": "src/index.js",
+  "files": [
+    "dist/index.json"
+  ],
   "scripts": {
     "test": "mocha",
     "test:watch": "mocha -w",
-    "build": "node ./scripts/build/build.js",
+    "lint": "eslint .",
+    "clean": "rm -rf ./dist",
+    "build": "npm run build:samples && npm run build:pkg",
+    "build:pkg": "rollup -c",
+    "build:samples": "node ./scripts/build/build.js",
+    "build:clean": "npm run clean && npm run build",
     "pull": "node ./scripts/pull/pull.js",
     "deploy": "node ./scripts/deploy/deploy.js",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "preversion": "npm run lint && npm run test && npm run build:pkg",
+    "serve": "docker-compose up"
   },
   "repository": {
     "type": "git",
@@ -36,6 +45,7 @@
     "mocha": "^7.0.1",
     "node-glob": "^1.2.0",
     "prettier": "^1.19.1",
+    "proxyquire": "^2.1.3",
     "zlib": "^1.0.5"
   }
 }

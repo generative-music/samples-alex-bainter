@@ -3,5 +3,6 @@
   "env": {
     "node": true,
     "es6": true
-  }
+  },
+  "ignorePatterns": ["dist"]
 }

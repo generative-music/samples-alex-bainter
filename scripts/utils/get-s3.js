@@ -1,7 +1,7 @@
 'use strict';
 
 const { S3 } = require('aws-sdk');
-const { s3BucketName } = require('./secrets');
+const { s3BucketName } = require('./env');
 
 const getS3 = () =>
   new S3({

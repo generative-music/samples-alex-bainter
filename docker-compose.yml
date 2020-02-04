@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  serve:
+    image: nginx
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+      - ./cors.conf:/etc/nginx/conf.d/cors.conf:ro
+    ports:
+      - 6969:80
