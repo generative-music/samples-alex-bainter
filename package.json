@@ -1,7 +1,7 @@
 {
   "name": "@generative-music/samples-alex-bainter",
   "version": "1.0.0",
-  "description": "",
+  "description": "Audio sample files used in Alex Bainter's projects",
   "main": "src/index.js",
   "files": [
     "dist/index.json"
