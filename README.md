@@ -43,15 +43,7 @@ console.log(ogg);
 npm run build
 ```
 
-Builds the samples, the sample index file (`dist/index.json`), and the npm package.
-
-#### Building sample files
-
-```bash
-npm run build:samples
-```
-
-Converts the source samples to the output formats with [FFmpeg](https://www.ffmpeg.org/) and creates `dist/index.json`. This will take a while. If `dist/index.json` exists prior to running this, only missing samples will be converted.
+Converts the source samples to the output formats with [FFmpeg](https://www.ffmpeg.org/) and creates `dist/index.json`. This may take a while. If `dist/index.json` exists prior to running this, only missing samples will be converted.
 
 ### Serving locally with Docker
 
