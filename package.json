@@ -11,14 +11,12 @@
     "test:watch": "mocha -w",
     "lint": "eslint .",
     "clean": "rm -rf ./dist",
-    "build": "npm run build:samples && npm run build:pkg",
-    "build:pkg": "rollup -c",
-    "build:samples": "node ./scripts/build/build.js",
+    "build": "node ./scripts/build/build.js",
     "build:clean": "npm run clean && npm run build",
     "pull": "node ./scripts/pull/pull.js",
     "deploy": "node ./scripts/deploy/deploy.js",
     "postversion": "git push && git push --tags",
-    "preversion": "npm run lint && npm run test && npm run build:pkg",
+    "preversion": "npm run lint && npm run test",
     "serve": "docker-compose up"
   },
   "repository": {

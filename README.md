@@ -53,14 +53,6 @@ npm run build:samples
 
 Converts the source samples to the output formats with [FFmpeg](https://www.ffmpeg.org/) and creates `dist/index.json`. This will take a while. If `dist/index.json` exists prior to running this, only missing samples will be converted.
 
-#### Building npm package
-
-```bash
-npm run build:pkg
-```
-
-Build the npm package. Note that the package requires `dist/index.json`.
-
 ### Serving locally with Docker
 
 > Requries [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
