@@ -55,9 +55,9 @@ npm run serve
 
 Serve the sample files on your local machine at http://localhost:6969/.
 
-## CDN configuration with AWS S3
+### CDN configuration with AWS S3
 
-### Prerequisites
+#### Prerequisites
 
 To store the samples on [AWS S3](https://aws.amazon.com/s3/), first create a file named `scripts/utils/env.js`. This file should export an object with an `s3BucketName` property that has a string value containing the name of an S3 bucket you have access to.
 
