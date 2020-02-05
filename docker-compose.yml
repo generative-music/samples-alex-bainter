@@ -5,6 +5,6 @@ services:
     image: nginx
     volumes:
       - ./dist:/usr/share/nginx/html:ro
-      - ./cors.conf:/etc/nginx/conf.d/cors.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 6969:80
