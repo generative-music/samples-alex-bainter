@@ -1,4 +1,4 @@
-const samplesByFormat = require('./dist/index.json');
+const samplesByFormat = require('../dist/index.json');
 
 const HOST_ENV_VAR_NAME = 'SAMPLE_FILE_HOST';
 

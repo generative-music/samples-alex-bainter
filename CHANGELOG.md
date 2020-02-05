@@ -7,10 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- none
+
+## [1.0.1] - 2020-02-05
+
 ### Fixed
 
-- Add npm description
-- Reformat README.md
+- Fixed require path for output index.
+- Add npm description.
+- Reformat README.md.
 
 ## [1.0.0] - 2020-02-04
 
@@ -24,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release which exports the output index.
 
-[unreleased]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/generative-music/samples-alex-bainter/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/generative-music/samples-alex-bainter/releases/tag/v0.0.1

@@ -23,7 +23,7 @@ const mockSamplesByFormat = {
 };
 
 const getSamplesByFormat = proxyquire('./index', {
-  './dist/index.json': mockSamplesByFormat,
+  '../dist/index.json': mockSamplesByFormat,
 });
 
 describe('getSamplesByFormat', () => {
