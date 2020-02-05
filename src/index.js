@@ -1,7 +1,5 @@
 const samplesByFormat = require('../dist/index.json');
 
-const HOST_ENV_VAR_NAME = 'SAMPLE_FILE_HOST';
-
 function transformUrls(transform, sampleIndex) {
   return Object.assign(
     {},
@@ -19,9 +17,7 @@ function transformUrls(transform, sampleIndex) {
 }
 
 function getSamplesByFormat(sampleFileHostArg) {
-  const host =
-    sampleFileHostArg ||
-    (process && process.env && process.env[HOST_ENV_VAR_NAME]);
+  const host = sampleFileHostArg || process.env.SAMPLE_FILE_HOST;
 
   if (!host) {
     return samplesByFormat;
