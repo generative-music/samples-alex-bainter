@@ -25,7 +25,7 @@ pfs
       console.log('No samples to build.');
       return;
     }
-    const outputFns = outputJobs.map(job => () => runOutputJob(job));
+    const outputFns = filteredOutputJobs.map(job => () => runOutputJob(job));
     sequentialPromises(outputFns, 'Creating Samples', 'samples created').then(
       outputSamples => {
         const outputIndex = getIndexFromOutputSamples(outputSamples);
