@@ -582,5 +582,19 @@
     "G3": "g3.wav",
     "G#3": "gsharp3.wav"
   },
-  "waves": ["1.wav"]
+  "waves": ["1.wav"],
+  "snare-brush-stir": ["1.wav"],
+  "snare-brush-hit-p": [
+    "1.wav",
+    "2.wav",
+    "3.wav",
+    "4.wav",
+    "5.wav",
+    "6.wav",
+    "7.wav",
+    "8.wav",
+    "9.wav",
+    "10.wav"
+  ],
+  "ride-brush-p": ["1.wav", "2.wav", "3.wav", "4.wav", "5.wav", "6.wav"]
 }
