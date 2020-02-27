@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - none
 
+## [1.1.0] - 2020-02-26
+
+### Fixed
+
+- Build script filters out existing samples
+
+### Added
+
+- ride-brush-p, snare-brush-hit, and snare-brush-stir samples
+
 ## [1.0.2] - 2020-02-05
 
 ### Fixed
@@ -36,7 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release which exports the output index.
 
-[unreleased]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.2...HEAD
+[unreleased]: https://github.com/generative-music/samples-alex-bainter/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/generative-music/samples-alex-bainter/compare/v0.1.0...v1.0.0
