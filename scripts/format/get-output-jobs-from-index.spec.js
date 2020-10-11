@@ -21,12 +21,14 @@ describe('getOutputJobsFromIndex', () => {
       instrument2: instrument2SampleIndex,
     };
     const formats = ['format1', 'format2'];
+    const sampleDir = 'sample-dir';
     const expectedResult = Reflect.ownKeys(instrument1SampleIndex)
       .reduce(
         (outputJobs, note) =>
           outputJobs.concat(
             formats.map(format =>
               outputJob(
+                sampleDir,
                 'instrument1',
                 note,
                 instrument1SampleIndex[note],
@@ -41,13 +43,13 @@ describe('getOutputJobsFromIndex', () => {
           (outputJobs, relativeFilename, i) =>
             outputJobs.concat(
               formats.map(format =>
-                outputJob('instrument2', i, relativeFilename, format)
+                outputJob(sampleDir, 'instrument2', i, relativeFilename, format)
               )
             ),
           []
         )
       );
-    const result = getOutputJobsFromIndex(inputIndex, formats);
+    const result = getOutputJobsFromIndex(inputIndex, formats, sampleDir);
     expect(result).to.have.deep.members(expectedResult);
   });
 });
