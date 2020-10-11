@@ -4,5 +4,8 @@
     "node": true,
     "es6": true
   },
-  "ignorePatterns": ["dist"]
+  "ignorePatterns": ["dist"],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  }
 }

@@ -8,15 +8,15 @@ const outputJob = require('./output-job');
 
 describe('filterExistingSamples', () => {
   it('should return the given array if no output index was provided', () => {
-    const outputJobs = [outputJob('test', 'key', 'filename', 'format')];
+    const outputJobs = [outputJob('', 'test', 'key', 'filename', 'format')];
     expect(filterExistingSamples(outputJobs)).to.have.members(outputJobs);
     expect(filterExistingSamples(outputJobs, {})).to.have.members(outputJobs);
   });
 
   it('should filter output jobs if a matching file for instrument, format, and key is found', () => {
     const outputJobs = [
-      outputJob('test1', 'key1', 'filename1', 'format1'),
-      outputJob('test2', 0, 'filename2', 'format2'),
+      outputJob('', 'test1', 'key1', 'filename1', 'format1'),
+      outputJob('', 'test2', 0, 'filename2', 'format2'),
     ];
     expect(
       filterExistingSamples(outputJobs, {
