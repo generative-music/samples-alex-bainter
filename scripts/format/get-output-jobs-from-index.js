@@ -4,6 +4,7 @@ const outputJob = require('./output-job');
 
 const getOutputJobsFromSampleIndexArray = (
   sampleIndex,
+  sampleDir,
   instrumentName,
   formats
 ) =>
@@ -11,7 +12,7 @@ const getOutputJobsFromSampleIndexArray = (
     (outputJobs, relativeFilename, i) =>
       outputJobs.concat(
         formats.map(format =>
-          outputJob(instrumentName, i, relativeFilename, format)
+          outputJob(sampleDir, instrumentName, i, relativeFilename, format)
         )
       ),
     []
@@ -19,6 +20,7 @@ const getOutputJobsFromSampleIndexArray = (
 
 const getOutputJobsFromSampleIndexObject = (
   sampleIndex,
+  sampleDir,
   instrumentName,
   formats
 ) =>
@@ -26,20 +28,24 @@ const getOutputJobsFromSampleIndexObject = (
     (outputJobs, note) =>
       outputJobs.concat(
         formats.map(format =>
-          outputJob(instrumentName, note, sampleIndex[note], format)
+          outputJob(sampleDir, instrumentName, note, sampleIndex[note], format)
         )
       ),
     []
   );
 
-const getOutputJobsFromIndex = (inputIndex = {}, formats = []) =>
+const getOutputJobsFromIndex = (
+  inputIndex = {},
+  formats = [],
+  sampleDir = 'samples'
+) =>
   Reflect.ownKeys(inputIndex).reduce((outputJobs, instrumentName) => {
     const sampleIndex = inputIndex[instrumentName];
     const getOutputJobs = Array.isArray(sampleIndex)
       ? getOutputJobsFromSampleIndexArray
       : getOutputJobsFromSampleIndexObject;
     return outputJobs.concat(
-      getOutputJobs(sampleIndex, instrumentName, formats)
+      getOutputJobs(sampleIndex, sampleDir, instrumentName, formats)
     );
   }, []);
 
