@@ -11,6 +11,7 @@ const sequentialPromises = require('../utils/sequential-promises');
 const baseIndex = require('../../samples/index.json');
 let prerenderedIndex;
 try {
+  //eslint-disable-next-line global-require
   prerenderedIndex = require('../../prerendered-samples/index.json');
 } catch (err) {
   console.log('prerendered-samples/index.json not found');

@@ -6,6 +6,7 @@ const fsLibrary = require('./fs-library');
 
 ipcRenderer.once('begin', async (event, piecePath) => {
   console.log('received begin event');
+  //eslint-disable-next-line global-require
   const activate = require(piecePath);
   console.log(`activating ${piecePath}`);
   await activate({

@@ -67,5 +67,5 @@ Promise.all([fsp.readdir(packageDir), app.whenReady()])
       );
   })
   .then(() => {
-    process.exit(0);
+    app.quit();
   });
