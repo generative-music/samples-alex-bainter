@@ -34,7 +34,7 @@ glob('./dist/**/*.@(wav|ogg|mp3)', (err, files) => {
 
   const orphans = files.filter(filename => {
     const [instrumentName, format, basename] = filename.split('/').slice(2);
-    return (
+    return !(
       indexedFileSets.has(format) &&
       indexedFileSets.get(format).has(instrumentName) &&
       indexedFileSets
