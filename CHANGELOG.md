@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Return sample index
+- Don't require an arg for format indices
 
 ## [2.0.0] - 2020-10-13
 

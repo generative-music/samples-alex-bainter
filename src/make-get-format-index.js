@@ -2,7 +2,7 @@
 
 const getFullPath = require('./get-full-path');
 
-const makeGetFormatIndex = ({ index, format }) => ({ host: hostArg }) => {
+const makeGetFormatIndex = ({ index, format }) => ({ host: hostArg } = {}) => {
   const host = hostArg || process.env.SAMPLE_FILE_HOST;
   return Object.keys(index).reduce((transformedIndex, instrumentName) => {
     const instrumentBasenames = index[instrumentName];

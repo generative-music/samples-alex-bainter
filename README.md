@@ -38,7 +38,7 @@ console.log(samples);
 To include only the index for a specific format, you can access it directly like so:
 
 ```javascript
-import getMp3Samples from '@generative-music/samples-alex-bainter/mp3';
+import getMp3Samples from '@generative-music/samples-alex-bainter/src/mp3';
 
 const mp3Samples = getSamples({ host: 'http://example.com' });
 ```
@@ -46,8 +46,10 @@ const mp3Samples = getSamples({ host: 'http://example.com' });
 This can be useful for dynamically loading a sample index to reduce bundle sizes in the browser:
 
 ```javascript
-const lazyMp3Index = () => import('generative-music/samples-alex-bainter/mp3');
-const lazyOggIndex = () => import('generative-music/samples-alex-bainter/ogg');
+const lazyMp3Index = () =>
+  import('generative-music/samples-alex-bainter/src/mp3');
+const lazyOggIndex = () =>
+  import('generative-music/samples-alex-bainter/src/ogg');
 
 const loadSampleIndex = isOggSupported => {
   if (isOggSupported) {
