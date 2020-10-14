@@ -4,35 +4,61 @@ Audio sample files used in [Alex Bainter](https://alexbainter.com)'s projects, w
 
 ## Usage
 
-This package exports a function which returns an object with the properties `ogg`, `mp3`, and `wav`. Each property is a sample index which adheres to the schema defined by [@generative-music/sample-index-schema](https://github.com/generative-music/sample-index-schema) and contains URLs to audio samples of the specified type.
+This package exports a function which takes an audio format (one of 'ogg','mp3', or 'wav') and returns a sample index which adheres to the schema defined by [@generative-music/sample-index-schema](https://github.com/generative-music/sample-index-schema) and contains URLs to audio samples of the specified type.
 
 ```javascript
-import getSamplesByFormat from '@generative-music/samples-alex-bainter';
+import getSamples from '@generative-music/samples-alex-bainter';
 import Tone from 'tone';
 
-const { wav } = getSamplesByFormat();
+const samples = getSamples({ format: 'mp3' });
 
 const pianoSampler = new Tone.Sampler(wav['vsco2-piano-mf']);
 ```
 
-By default, the URLs in each sample index are relative (e.g. `'./vsco2-piano-mf/ogg/<filename>.ogg'`). A string prefix can be added by passing it as a parameter to the get function, or with an environment variable named `SAMPLE_FILE_HOST`. If a parameter is passed and the environment variable is also set, the argument will be used.
+By default, the URLs in the sample index are relative (e.g. `'vsco2-piano-mf/ogg/<filename>.ogg'`). A string prefix can be added by passing a `host` parameter to the get function, or with an environment variable named `SAMPLE_FILE_HOST`. If a parameter is passed and the environment variable is also set, the argument will be used.
 
 ```javascript
-import getSamplesByFormat from '@generative-music/samples-alex-bainter';
+import getSamples from '@generative-music/samples-alex-bainter';
 
-const { ogg } = getSamplesByFormat('http://example.com');
+const samples = getSamples({ host: 'http://example.com', format: 'ogg' });
 
-console.log(ogg);
+console.log(samples);
 /*
-{
+{https://github.com/metalex9/s3-sync
   'vsco2-piano-mf': {
-    A0: 'http://example.com/./vsco2-piano-mf/ogg/<filename>.ogg',
-    'C#1': 'http://example.com/./vsco2-piano-mf/ogg/<filename>.ogg'
+    A0: 'http://example.com/vsco2-piano-mf/ogg/<filename>.ogg',
+    'C#1': 'http://example.com/vsco2-piano-mf/ogg/<filename>.ogg'
     // ...
   },
   // ...
 }
 */
+```
+
+To include only the index for a specific format, you can access it directly like so:
+
+```javascript
+import getMp3Samples from '@generative-music/samples-alex-bainter/mp3';
+
+const mp3Samples = getSamples({ host: 'http://example.com' });
+```
+
+This can be useful for dynamically loading a sample index to reduce bundle sizes in the browser:
+
+```javascript
+const lazyMp3Index = () => import('generative-music/samples-alex-bainter/mp3');
+const lazyOggIndex = () => import('generative-music/samples-alex-bainter/ogg');
+
+const loadSampleIndex = isOggSupported => {
+  if (isOggSupported) {
+    return lazyOggIndex();
+  }
+  return lazyMp3Index();
+};
+
+loadSampleIndex.then(samples => {
+  //...
+});
 ```
 
 ## Local development
@@ -43,7 +69,7 @@ console.log(ogg);
 npm run build
 ```
 
-Converts the source samples to the output formats with [FFmpeg](https://www.ffmpeg.org/) and creates `dist/index.json`. This may take a while. If `dist/index.json` exists prior to running this, only missing samples will be converted.
+Prerenders necessary samples and converts all samples to the output formats with [FFmpeg](https://www.ffmpeg.org/) and creates `dist/index.json`. This may take a while. If `dist/index.json` exists prior to running this, only missing samples will be converted.
 
 ### Serving locally with Docker
 
@@ -59,16 +85,7 @@ Serve the sample files on your local machine at http://localhost:6969/.
 
 #### Prerequisites
 
-To store the samples on [AWS S3](https://aws.amazon.com/s3/), first create a file named `scripts/utils/env.js`. This file should export an object with an `s3BucketName` property that has a string value containing the name of an S3 bucket you have access to.
-
-```javascript
-// scripts/utils/env.js
-module.exports = {
-  s3BucketName: 'example-s3-bucket',
-};
-```
-
-Next, you'll need to provide credentials to the [AWS SDK](https://aws.amazon.com/sdk-for-node-js/), either by using a [shared credentials file](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-shared.html) or [environment variables](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-environment.html). You can easily create a shared credentials file by installing the [AWS CLI](https://aws.amazon.com/cli/) and running `aws configure`.
+See [`@alexbainter/s3-sync`](https://github.com/metalex9/s3-sync) configuration.
 
 #### Uploading to S3
 

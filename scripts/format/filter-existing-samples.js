@@ -3,9 +3,9 @@
 const filterExistingSamples = (outputJobs, previousOutputIndex = {}) =>
   outputJobs.filter(
     ({ instrumentName, key, format }) =>
-      !previousOutputIndex[format] ||
-      !previousOutputIndex[format][instrumentName] ||
-      !previousOutputIndex[format][instrumentName][key]
+      !previousOutputIndex[instrumentName] ||
+      !previousOutputIndex[instrumentName][format] ||
+      !previousOutputIndex[instrumentName][format][key]
   );
 
 module.exports = filterExistingSamples;

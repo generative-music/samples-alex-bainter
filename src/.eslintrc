@@ -2,10 +2,15 @@
   "env": {
     "browser": true
   },
-  "parserOptions": {
-    "sourceType": "module"
-  },
   "rules": {
     "no-process-env": 0
-  }
+  },
+  "overrides": [
+    {
+      "files": "./**/*.spec.js",
+      "env": {
+        "mocha": true
+      }
+    }
+  ]
 }

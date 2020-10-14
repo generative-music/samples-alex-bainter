@@ -2,6 +2,7 @@
 
 'use strict';
 
+const path = require('path');
 const fsp = require('fs').promises;
 const glob = require('glob');
 const outputIndex = require('../../dist/index.json');
@@ -11,35 +12,38 @@ glob('./dist/**/*.@(wav|ogg|mp3)', (err, files) => {
     throw err;
   }
   const indexedFileSets = Object.keys(outputIndex).reduce(
-    (byFormat, format) => {
-      const basenamesByInstrument = Object.keys(outputIndex[format]).reduce(
-        (byInstrument, instrumentName) => {
-          const filepaths = outputIndex[format][instrumentName];
-          const filepathsArray = Array.isArray(filepaths)
-            ? filepaths
-            : Object.values(filepaths);
-          const basenames = filepathsArray.map(filepath =>
-            filepath.slice(filepath.lastIndexOf('/') + 1)
-          );
-          byInstrument.set(instrumentName, new Set(basenames));
-          return byInstrument;
+    (byInstrumentName, instrumentName) => {
+      const basenamesByFormat = Object.keys(outputIndex[instrumentName]).reduce(
+        (byFormat, format) => {
+          const basenames = outputIndex[instrumentName][format];
+          const basenamesArray = Array.isArray(basenames)
+            ? basenames
+            : Object.values(basenames);
+          byFormat.set(format, new Set(basenamesArray));
+          return byFormat;
         },
         new Map()
       );
-      byFormat.set(format, basenamesByInstrument);
-      return byFormat;
+      byInstrumentName.set(instrumentName, basenamesByFormat);
+      return byInstrumentName;
     },
     new Map()
   );
 
   const orphans = files.filter(filename => {
-    const [instrumentName, format, basename] = filename.split('/').slice(2);
+    const [instrumentName, format, basenameWithExtension] = filename
+      .split('/')
+      .slice(2);
+    const basename = path.basename(
+      basenameWithExtension,
+      path.extname(basenameWithExtension)
+    );
     return !(
-      indexedFileSets.has(format) &&
-      indexedFileSets.get(format).has(instrumentName) &&
+      indexedFileSets.has(instrumentName) &&
+      indexedFileSets.get(instrumentName).has(format) &&
       indexedFileSets
-        .get(format)
         .get(instrumentName)
+        .get(format)
         .has(basename)
     );
   });
