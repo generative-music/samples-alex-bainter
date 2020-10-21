@@ -17,7 +17,7 @@ describe('getIndexFromOutputSamples', () => {
       getIndexFromOutputSamples([
         { instrumentName: 'test', key: 0, format: 'format', filePath },
       ])
-    ).to.eql({ format: { test: [filePath] } });
+    ).to.eql({ test: { format: [filePath] } });
   });
 
   it('should create an object for samples with string keys', () => {
@@ -26,6 +26,6 @@ describe('getIndexFromOutputSamples', () => {
       getIndexFromOutputSamples([
         { instrumentName: 'test', key: 'A5', format: 'format', filePath },
       ])
-    ).to.eql({ format: { test: { A5: filePath } } });
+    ).to.eql({ test: { format: { A5: filePath } } });
   });
 });

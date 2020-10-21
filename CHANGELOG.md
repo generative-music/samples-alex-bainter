@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - none
 
+## [2.0.1] -2020-10-14
+
+### Fixed
+
+- Return sample index
+- Don't require an arg for format indices
+
+## [2.0.0] - 2020-10-13
+
+### Changed
+
+- **(Breaking)** Exported function takes a single object parameter which may contain `host`
+- **(Breaking)** Require `format` parameter
+
+### Added
+
+- Single-format indices
+
 ## [1.1.0] - 2020-02-26
 
 ### Fixed
@@ -46,7 +64,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release which exports the output index.
 
-[unreleased]: https://github.com/generative-music/samples-alex-bainter/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/generative-music/samples-alex-bainter/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/generative-music/samples-alex-bainter/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/generative-music/samples-alex-bainter/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/generative-music/samples-alex-bainter/compare/v1.0.0...v1.0.1

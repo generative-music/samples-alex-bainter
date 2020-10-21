@@ -1,39 +1,15 @@
-const samplesByFormat = require('../dist/index.json');
+'use strict';
 
-function transformUrls(transform, sampleIndex) {
-  return Object.assign(
-    {},
-    Reflect.ownKeys(sampleIndex).reduce((prefixedIndex, sampleName) => {
-      const samples = sampleIndex[sampleName];
-      prefixedIndex[sampleName] = Array.isArray(samples)
-        ? samples.map(url => transform(url))
-        : Reflect.ownKeys(samples).reduce((prefixedSamples, key) => {
-            prefixedSamples[key] = transform(samples[key]);
-            return prefixedSamples;
-          }, {});
-      return prefixedIndex;
-    }, {})
-  );
-}
+const getWavSamples = require('./wav');
+const getMp3Samples = require('./mp3');
+const getOggSamples = require('./ogg');
 
-function getSamplesByFormat(sampleFileHostArg) {
-  const host = sampleFileHostArg || process.env.SAMPLE_FILE_HOST;
+const getSamplesByFormat = {
+  wav: getWavSamples,
+  mp3: getMp3Samples,
+  ogg: getOggSamples,
+};
 
-  if (!host) {
-    return samplesByFormat;
-  }
-  const prefixUrl = url => `${host}/${url}`;
+const getSamples = ({ host, format }) => getSamplesByFormat[format]({ host });
 
-  return Reflect.ownKeys(samplesByFormat).reduce(
-    (prefixedSamplesByFormat, format) => {
-      prefixedSamplesByFormat[format] = transformUrls(
-        prefixUrl,
-        samplesByFormat[format]
-      );
-      return prefixedSamplesByFormat;
-    },
-    {}
-  );
-}
-
-module.exports = getSamplesByFormat;
+module.exports = getSamples;

@@ -1,10 +1,14 @@
 {
   "name": "@generative-music/samples-alex-bainter",
-  "version": "1.2.0",
+  "version": "2.0.1",
   "description": "Audio sample files used in Alex Bainter's projects",
   "main": "src/index.js",
   "files": [
-    "dist/index.json"
+    "dist/index.json",
+    "dist/mp3.json",
+    "dist/ogg.json",
+    "dist/wav.json",
+    "src/*.js"
   ],
   "scripts": {
     "test": "mocha",
@@ -15,13 +19,13 @@
     "clean:all": "npm run clean:formatted && npm run clear:prerendered",
     "format": "node ./scripts/format/format.js",
     "format:clean": "npm run clean:formatted && npm run format",
-    "pull": "node -r dotenv/config node_modules/.bin/s3-sync pull --mutables index.json",
+    "pull": "node -r dotenv/config node_modules/.bin/s3-sync pull --mutables index.json,wav.json,mp3.json,ogg.json",
     "pull:dry-run": "npm run pull -- --dryRun",
-    "deploy": "node -r dotenv/config node_modules/.bin/s3-sync deploy --mutables index.json --compressExtensions json,wav",
+    "deploy": "node -r dotenv/config node_modules/.bin/s3-sync deploy --mutables index.json,wav.json,mp3.json,ogg.json --compressExtensions json,wav",
     "deploy:dry-run": "npm run deploy -- --dryRun",
     "postversion": "git push && git push --tags",
     "preversion": "npm run lint && npm run test",
-    "serve": "docker-compose up",
+    "serve": "sudo docker-compose up",
     "prerender": "electron scripts/prerender/main.js",
     "build": "npm run prerender && npm run format",
     "prune": "node ./scripts/prune/prune.js"
