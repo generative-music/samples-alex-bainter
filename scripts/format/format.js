@@ -69,7 +69,7 @@ fsp
                 byFormat[format] = Object.assign(
                   {},
                   existingInstrumentIndex[format],
-                  appendIndex[format]
+                  appendIndex[instrumentName][format]
                 );
                 return byFormat;
               },
@@ -100,7 +100,7 @@ fsp
           ])
           .concat([['./dist/index.json', outputIndex]]);
         return Promise.all(
-          indexFiles.map((filename, data) =>
+          indexFiles.map(([filename, data]) =>
             fsp.writeFile(filename, JSON.stringify(data), 'utf8')
           )
         );
