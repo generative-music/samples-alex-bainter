@@ -3,6 +3,7 @@
 'use strict';
 
 const fsp = require('fs').promises;
+const path = require('path');
 const getOutputJobsFromIndex = require('./get-output-jobs-from-index');
 const runOutputJob = require('./run-output-job');
 const getIndexFromOutputSamples = require('./get-index-from-output-samples');
@@ -52,8 +53,9 @@ fsp
     sequentialPromises(outputFns, 'Creating Samples', 'samples created').then(
       outputSamples => {
         const appendIndex = getIndexFromOutputSamples(outputSamples);
-        const outputIndex = Object.keys(appendIndex).reduce(
-          (byInstrumentName, instrumentName) => {
+        const outputIndex = Object.keys(appendIndex)
+          .concat(Object.keys(existingOutputIndex))
+          .reduce((byInstrumentName, instrumentName) => {
             const existingInstrumentIndex = existingOutputIndex[instrumentName]
               ? existingOutputIndex[instrumentName]
               : {};
@@ -76,9 +78,7 @@ fsp
               {}
             );
             return byInstrumentName;
-          },
-          {}
-        );
+          }, {});
         const singleFormatIndicies = Object.keys(outputIndex).reduce(
           (byFormat, instrumentName) => {
             const instrumentFilesByFormat = outputIndex[instrumentName];
@@ -86,8 +86,18 @@ fsp
               if (!byFormat[format]) {
                 byFormat[format] = {};
               }
-              byFormat[format][instrumentName] =
-                instrumentFilesByFormat[format];
+              byFormat[format][instrumentName] = Object.keys(
+                instrumentFilesByFormat[format]
+              ).reduce(
+                (collection, key) => {
+                  collection[key] = path.basename(
+                    instrumentFilesByFormat[format][key],
+                    `.${format}`
+                  );
+                  return collection;
+                },
+                Array.isArray(instrumentFilesByFormat[format]) ? [] : {}
+              );
             });
             return byFormat;
           },
@@ -100,9 +110,11 @@ fsp
           ])
           .concat([['./dist/index.json', outputIndex]]);
         return Promise.all(
-          indexFiles.map(([filename, data]) =>
-            fsp.writeFile(filename, JSON.stringify(data), 'utf8')
-          )
+          indexFiles
+            .filter(([, data]) => Object.keys(data) !== 0)
+            .map(([filename, data]) =>
+              fsp.writeFile(filename, JSON.stringify(data), 'utf8')
+            )
         );
       }
     );
