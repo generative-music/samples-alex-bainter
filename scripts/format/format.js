@@ -59,19 +59,25 @@ fsp
             const existingInstrumentIndex = existingOutputIndex[instrumentName]
               ? existingOutputIndex[instrumentName]
               : {};
+            const appendingInstrumentIndex = appendIndex[instrumentName]
+              ? appendIndex[instrumentName]
+              : {};
             const formats = Array.from(
               new Set(
                 Object.keys(existingInstrumentIndex).concat(
-                  Object.keys(appendIndex[instrumentName])
+                  Object.keys(appendingInstrumentIndex)
                 )
               )
             );
             byInstrumentName[instrumentName] = formats.reduce(
               (byFormat, format) => {
                 byFormat[format] = Object.assign(
-                  {},
+                  Array.isArray(existingInstrumentIndex[format]) ||
+                    Array.isArray(appendingInstrumentIndex[format])
+                    ? []
+                    : {},
                   existingInstrumentIndex[format],
-                  appendIndex[instrumentName][format]
+                  appendingInstrumentIndex[format]
                 );
                 return byFormat;
               },

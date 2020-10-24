@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - none
 
+## [2.1.2] - 2020-10-24
+
+### Fixed
+
+- Array-based samples in index
+
 ## [2.1.1] - 2020-10-22
 
 ### Fixed
@@ -17,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0] - 2020-10-22
 
-### Added
+### Added "dist/index.json",
 
 - last-transit\_\_idling sample
 
@@ -76,7 +82,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release which exports the output index.
 
-[unreleased]: https://github.com/generative-music/samples-alex-bainter/compare/v2.1.1...HEAD
+[unreleased]: https://github.com/generative-music/samples-alex-bainter/compare/v2.1.2...HEAD
+[2.1.2]: https://github.com/generative-music/samples-alex-bainter/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/generative-music/samples-alex-bainter/compare/v2.1.0...v2.1.0
 [2.1.0]: https://github.com/generative-music/samples-alex-bainter/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/generative-music/samples-alex-bainter/compare/v2.0.0...v2.0.1
