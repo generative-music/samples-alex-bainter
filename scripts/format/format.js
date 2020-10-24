@@ -35,10 +35,10 @@ const prerenderedOutputJobs = getOutputJobsFromIndex(
 const outputJobs = baseOutputJobs.concat(prerenderedOutputJobs);
 
 fsp
-  .readFile(outputIndexPath)
+  .readFile(outputIndexPath, 'utf8')
   .then(
     data => JSON.parse(data),
-    () => outputJobs
+    () => ({})
   )
   .then(existingOutputIndex => {
     const filteredOutputJobs = filterExistingSamples(
