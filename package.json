@@ -24,7 +24,7 @@
     "deploy:dry-run": "npm run deploy -- --dryRun",
     "postversion": "git push && git push --tags",
     "preversion": "npm run lint && npm run test",
-    "serve": "sudo docker-compose up",
+    "serve": "docker-compose up",
     "prerender": "electron scripts/prerender/main.js",
     "build": "npm run prerender && npm run format",
     "prune:local": "node ./scripts/prune/prune.js",
