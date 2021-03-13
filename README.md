@@ -65,7 +65,17 @@ loadSampleIndex.then(samples => {
 
 ## Local development
 
+### Cached proxy server
+
+```bash
+npm run serve:proxy
+```
+
+Start a proxy server at http://localhost:6969 which serves sample files from an S3 bucket and caches them in the local file system.
+
 ### Building
+
+> **This step takes a long time and is no longer necessary if you just want to get one of my projects running locally.** See [Cached proxy server](#cached-proxy-server) above.
 
 ```bash
 npm run build
