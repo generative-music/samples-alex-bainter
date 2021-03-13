@@ -596,5 +596,7 @@
     "9.wav",
     "10.wav"
   ],
-  "ride-brush-p": ["1.wav", "2.wav", "3.wav", "4.wav", "5.wav", "6.wav"]
+  "ride-brush-p": ["1.wav", "2.wav", "3.wav", "4.wav", "5.wav", "6.wav"],
+  "birds": ["1.mp3"],
+  "explosion": ["1.wav"]
 }
