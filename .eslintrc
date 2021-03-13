@@ -1,9 +1,5 @@
 {
-  "extends": "metalex9",
-  "env": {
-    "node": true,
-    "es6": true
-  },
+  "extends": "@alexbainter/eslint-config/node",
   "ignorePatterns": ["dist"],
   "parserOptions": {
     "ecmaVersion": 2018
