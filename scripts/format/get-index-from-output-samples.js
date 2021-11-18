@@ -3,17 +3,17 @@
 const getIndexFromOutputSamples = (outputSamples = []) =>
   outputSamples.reduce(
     (outputIndex, { instrumentName, key, filePath, format }) => {
-      if (!outputIndex[instrumentName]) {
-        outputIndex[instrumentName] = {};
+      if (!outputIndex[format]) {
+        outputIndex[format] = {};
       }
       if (!Number.isNaN(Number.parseInt(key, 10))) {
-        if (!outputIndex[instrumentName][format]) {
-          outputIndex[instrumentName][format] = [];
+        if (!outputIndex[format][instrumentName]) {
+          outputIndex[format][instrumentName] = [];
         }
-      } else if (!outputIndex[instrumentName][format]) {
-        outputIndex[instrumentName][format] = {};
+      } else if (!outputIndex[format][instrumentName]) {
+        outputIndex[format][instrumentName] = {};
       }
-      outputIndex[instrumentName][format][key] = filePath;
+      outputIndex[format][instrumentName][key] = filePath;
       return outputIndex;
     },
     {}

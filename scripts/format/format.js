@@ -53,67 +53,57 @@ fsp
     sequentialPromises(outputFns, 'Creating Samples', 'samples created').then(
       outputSamples => {
         const appendIndex = getIndexFromOutputSamples(outputSamples);
-        const outputIndex = Object.keys(appendIndex)
-          .concat(Object.keys(existingOutputIndex))
-          .reduce((byInstrumentName, instrumentName) => {
-            const existingInstrumentIndex = existingOutputIndex[instrumentName]
-              ? existingOutputIndex[instrumentName]
-              : {};
-            const appendingInstrumentIndex = appendIndex[instrumentName]
-              ? appendIndex[instrumentName]
-              : {};
-            const formats = Array.from(
-              new Set(
-                Object.keys(existingInstrumentIndex).concat(
-                  Object.keys(appendingInstrumentIndex)
-                )
-              )
-            );
-            byInstrumentName[instrumentName] = formats.reduce(
-              (byFormat, format) => {
-                byFormat[format] = Object.assign(
-                  Array.isArray(existingInstrumentIndex[format]) ||
-                    Array.isArray(appendingInstrumentIndex[format])
-                    ? []
-                    : {},
-                  existingInstrumentIndex[format],
-                  appendingInstrumentIndex[format]
+        const outputIndex = Object.keys(appendIndex).reduce(
+          (newOutputIndex, format) => {
+            const appendingFormatIndex = appendIndex[format];
+            newOutputIndex[format] = Object.keys(appendingFormatIndex).reduce(
+              (byInstrumentName, instrumentName) => {
+                const collection =
+                  newOutputIndex[format][instrumentName] ||
+                  appendingFormatIndex[instrumentName];
+                byInstrumentName[instrumentName] = Object.assign(
+                  collection,
+                  newOutputIndex[format][instrumentName],
+                  appendingFormatIndex[instrumentName]
                 );
-                return byFormat;
+                return byInstrumentName;
+              },
+              newOutputIndex[format]
+            );
+            return newOutputIndex;
+          },
+          existingOutputIndex
+        );
+        const condendsedIndex = Object.keys(outputIndex).reduce(
+          (byFormat, format) => {
+            const byInstrumentName = outputIndex[format];
+            byFormat[format] = Object.keys(byInstrumentName).reduce(
+              (o, instrumentName) => {
+                const sampleFiles = byInstrumentName[instrumentName];
+                if (Array.isArray(sampleFiles)) {
+                  o[instrumentName] = sampleFiles.map(filePath =>
+                    path.basename(filePath, `.${format}`)
+                  );
+                } else if (typeof sampleFiles === 'object') {
+                  o[instrumentName] = Object.keys(sampleFiles).reduce(
+                    (byKey, key) => {
+                      const filePath = sampleFiles[key];
+                      byKey[key] = path.basename(filePath, `.${format}`);
+                      return byKey;
+                    },
+                    {}
+                  );
+                }
+                return o;
               },
               {}
             );
-            return byInstrumentName;
-          }, {});
-        const singleFormatIndicies = Object.keys(outputIndex).reduce(
-          (byFormat, instrumentName) => {
-            const instrumentFilesByFormat = outputIndex[instrumentName];
-            Object.keys(instrumentFilesByFormat).forEach(format => {
-              if (!byFormat[format]) {
-                byFormat[format] = {};
-              }
-              byFormat[format][instrumentName] = Object.keys(
-                instrumentFilesByFormat[format]
-              ).reduce(
-                (collection, key) => {
-                  collection[key] = path.basename(
-                    instrumentFilesByFormat[format][key],
-                    `.${format}`
-                  );
-                  return collection;
-                },
-                Array.isArray(instrumentFilesByFormat[format]) ? [] : {}
-              );
-            });
             return byFormat;
           },
           {}
         );
-        const indexFiles = Object.keys(singleFormatIndicies)
-          .map(format => [
-            `./dist/${format}.json`,
-            singleFormatIndicies[format],
-          ])
+        const indexFiles = Object.keys(condendsedIndex)
+          .map(format => [`./dist/${format}.json`, condendsedIndex[format]])
           .concat([['./dist/index.json', outputIndex]]);
         return Promise.all(
           indexFiles
