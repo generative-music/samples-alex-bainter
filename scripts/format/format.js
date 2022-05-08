@@ -53,6 +53,9 @@ fsp
     sequentialPromises(outputFns, 'Creating Samples', 'samples created').then(
       outputSamples => {
         const appendIndex = getIndexFromOutputSamples(outputSamples);
+        if (!newOutputIndex[format]) {
+          newOutputIndex[format] = {};
+        }
         const outputIndex = Object.keys(appendIndex).reduce(
           (newOutputIndex, format) => {
             const appendingFormatIndex = appendIndex[format];
@@ -72,7 +75,7 @@ fsp
             );
             return newOutputIndex;
           },
-          existingOutputIndex
+          {}
         );
         const condendsedIndex = Object.keys(outputIndex).reduce(
           (byFormat, format) => {
